@@ -54,24 +54,18 @@
         "use strict";
         //https://stackoverflow.com/questions/29275649/javascript-iban-validation-check-german-or-austrian-iban
         function increment() {
-            let c = (kimlik.value.replaceAll(/\s/g, ''))
-            let n = Number(c.length)
-            while (n > 0) {
-                if (c[n] == '9') {
-                    console.log('girdi')
-                    Number(c[n + 1]) += 1;
-                    Number(c[n]) = 0;
-                    c = Number(c + 97);
+            let v = kimlik.value.replaceAll(/\s/g, '')
 
-                } else {
-                    c = c.substring(0, n) + (parseInt(c[n]) + 1) + c.substring(n + 1)
-                    break
-                }
-            }
-            c = String(c)
-            console.log(c)
-            verifyIBAN(c)
+            let value = parseInt(v, 10)
+
+            let c = value + 97
+            console.log("counter = " + c)
+            out.innerText = c
         }
+        c = String(c)
+        console.log(c)
+        verifyIBAN(c)
+
 
 
 
