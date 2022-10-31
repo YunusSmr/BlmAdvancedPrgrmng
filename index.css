@@ -143,13 +143,13 @@
   bottom: 0;
   text-align: center;
 
-  width: 90%;
-  height: 90%;
+  width: 95%;
+  height: 95%;
 
   margin-top: 5%;
   margin-bottom: 5%;
 
-  border-radius: 25px;
+  border-radius: 5px;
   border: solid 1px rgba(150, 150, 150, 0.2);
 
   box-shadow: 5px 5px 25px 2px black;
@@ -168,13 +168,6 @@
   width: 100%;
   min-height: 400px;
   margin: 20px;
-}
-
-.seperator_mobile {
-  width: 85%;
-  height: 1px;
-  background-color: rgba(150, 150, 150, 0.2);
-  align-self: center;
 }
 
 .link_mobile {
