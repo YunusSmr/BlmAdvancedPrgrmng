@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="https://blm-fsmvu.github.io/305/images/icon192.png" />
+    <title>Battery Status</title>
+
+    <style>
+        /* CSS comment */
+        
+        body {
+            max-width: 440px;
+        }
+        
+        #url {
+            width: 190px;
+        }
+        
+        span,
+        #url {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="title"></h2>
+    <div id="charging"></div>
+    <div>
+        <progress id="progress" value="0" max="100"></progress>
+        <span id="levelTxt"></span>
+    </div>
+    <div id="message"></div>
+
+    <h2>Online Status</h2>
+    <p id="out"></p>
+    <p id="online"></p>
+
+    <h2>Keyboard</h2>
+    <span id="up"></span>
+    <span id="key"></span>
+    <hr />
+    <b>Sample code</b>
+    <pre id="sample">
+        function showOnline(b) {
+            let msg
+            if (b) {
+              msg = 'connected -- online'
+              online.style.color = 'green'
+            } else {
+              msg = 'disconnected -- offline'
+              online.style.color = 'red'
+            }
+            online.innerText = msg
+            console.log(msg)
+          }
+        }
+        
+        <br>function keyboard(k) {
+            // down
+            window.onkeydown = (e) => {
+              if (e.altKey) {
+                up.innerText = 'Alt'
+              } else if (e.ctrlKey) {
+                up.innerText = 'Ctrl'
+              } else if (e.shiftKey) {
+                up.innerText = 'Shift'
+              }
+              key.innerText = e.key
+            }
+            // up
+            window.onkeyup = (e) => {
+              if (
+                !e.getModifierState('Alt') &&
+                !e.getModifierState('Control') &&
+                !e.getModifierState('Shift')
+              ) {
+                up.innerText = ''
+              }
+            }
+          }</br></pre
+    >
+
+    <hr />
+    <script>
+      'use strict'
+
+      function getBatteryState(evt) {
+        let battery = evt.target
+        let state = '',
+          msg = ''
+        let level = Math.round(battery.level * 100)
+        if (battery.charging) {
+          state = level == 100 ? 'Fully charged' : 'Charging...'
+          if (battery.chargingTime < Infinity) {
+            let tf = getTimeFormat(battery.chargingTime)
+            msg = tf.hour + ':' + tf.minute + ' to full charge'
+          }
+        } else {
+          state = level > 15 ? 'Discharging...' : 'Connect the charger'
+          if (battery.dischargingTime < Infinity) {
+            let tf = getTimeFormat(battery.dischargingTime)
+            msg = tf.hour + ':' + tf.minute + ' remaining'
+          }
+        }
+        console.log(level, battery.charging, msg)
+        charging.innerText = state
+        progress.value = level
+        levelTxt.innerText = level + '%'
+        message.innerText = msg
+      }
+
+      function getTimeFormat(time) {
+        let m = time / 60
+        let hour = parseInt(m / 60)
+        let minute = parseInt(m % 60)
+        minute = minute < 10 ? '0' + minute : minute
+        return {
+          hour,
+          minute,
+        }
+      }
+
+      function init(b) {
+        getBatteryState({
+          type: 'init',
+          target: b,
+        })
+        b.onlevelchange = getBatteryState
+        b.onchargingchange = getBatteryState
+      }
+
+      function showOnline(b) {
+        let msg
+        if (b) {
+          msg = 'connected -- online'
+          online.style.color = 'green'
+        } else {
+          msg = 'disconnected -- offline'
+          online.style.color = 'red'
+        }
+        online.innerText = msg
+        console.log(msg)
+      }
+
+      function keyboard(k) {
+        // down
+        window.onkeydown = (e) => {
+          if (e.altKey) {
+            up.innerText = 'Alt'
+          } else if (e.ctrlKey) {
+            up.innerText = 'Ctrl'
+          } else if (e.shiftKey) {
+            up.innerText = 'Shift'
+          }
+          key.innerText = e.key
+        }
+        // up
+        window.onkeyup = (e) => {
+          if (
+            !e.getModifierState('Alt') &&
+            !e.getModifierState('Control') &&
+            !e.getModifierState('Shift')
+          ) {
+            up.innerText = ''
+          }
+        }
+      }
+      title.innerText = document.title
+      onoffline = () => showOnline(false)
+      ononline = () => showOnline(true)
+      showOnline(navigator.onLine)
+      if (navigator.getBattery) navigator.getBattery().then(init)
+      else throw 'getBattery not found'
+
+      keyboard()
+    </script>
+  </body>
+</html>
