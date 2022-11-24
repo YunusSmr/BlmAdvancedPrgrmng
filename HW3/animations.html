@@ -10,12 +10,13 @@
 <body>
     <canvas></canvas>
     <script src="animations.js"></script>
+    <div onload="buildImages();" class="contents" id="content"></div>
     <p>
-        <input type="button" value="Start" onclick="moveRight();" />
-        <input type="button" value="Pause" onclick="stop();" />
-        <input type="button" value="Stop" onclick="stop();" />
-        <input type="button" value="Next" onclick="stop();" />
-        <input type="button" value="Prev" onclick="stop();" />
+        <input type="button" value="Start" onclick="move(1);" />
+        <input type="button" value="Pause" onclick="move(2);" />
+        <input type="button" value="Stop" onclick="move(3);" />
+        <input type="button" value="Next" onclick="move(4);" />
+        <input type="button" value="Prev" onclick="move(5);" />
     </p>
 </body>
 
