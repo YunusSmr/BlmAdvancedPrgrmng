@@ -1,4 +1,8 @@
-//create empty array
+var canvas = document.querySelector('canvas');
+var c = canvas.getContext('2d');
+
+canvas.width = window.innerWidth = 300;
+canvas.height = window.innerHeight = 300; //create empty array
 var images = [];
 images.length = 5;
 let img = document.createElement("img");
@@ -43,12 +47,14 @@ function move(choice) {
     switch (choice) {
         case 1:
             getImages();
-            while (true) {
-                index++;
-                index = index % images.length;
-                buildImage(index);
-
-            }
+            var i = 0;
+            setInterval(function() {
+                i++;
+                if (i >= 15) {
+                    i = 0;
+                }
+                c.drawImage(images[i], 0, 0, 300, 300);
+            }, 200)
 
             console.log("1");
             break;
