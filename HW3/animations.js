@@ -1,12 +1,22 @@
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 
-canvas.width = window.innerWidth = 300;
-canvas.height = window.innerHeight = 300; //create empty array
+document.getElementById('canvas').style.width = '600px';
+document.getElementById('canvas').style.height = '600px';
+
+
+
+//create empty array
 var images = [];
-images.length = 5;
-let img = document.createElement("img");
 var index = 0;
+var x;
+
+
+
+window.addEventListener("load", () => {
+    getImages();
+});
+
 
 async function getImages() {
     for (let i = 1; i < 6; i++) {
@@ -21,24 +31,30 @@ async function getImages() {
         if (response.status === 200) {
             let imageBlob = await response.blob();
             let imageObjectURL = URL.createObjectURL(imageBlob);
-            img.src = imageObjectURL;
-            images.push(img);
+            let image = document.createElement("img");
+            image.src = imageObjectURL;
+            images.push(image);
         } else {
             console.log("HTTP-Error: " + response.status);
         }
     }
 }
 
-function buildImage(index) {
-    img.src = images[index];
-    document.getElementById('content').appendChild(img);
-}
 
-function changeImage() {
-    var img = document.getElementById('content').getElementsByTagName('img')[0]
-    index++;
-    index = index % images.length; // This is for if this is the last image then goto first image
-    img.src = images[index];
+
+
+function animate() {
+    if (index >= 5) {
+        index = 0;
+    }
+
+    x = setTimeout(function() {
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        c.drawImage(images[index++], 0, 0, 150, 150);
+
+        requestAnimationFrame(animate);
+    }, 200);
+
 }
 
 
@@ -46,39 +62,64 @@ function move(choice) {
 
     switch (choice) {
         case 1:
-            getImages();
-            var i = 0;
-            setInterval(function() {
-                i++;
-                if (i >= 15) {
-                    i = 0;
-                }
-                c.drawImage(images[i], 0, 0, 300, 300);
-            }, 200)
 
+            animate();
+            document.getElementById("start").disabled = true;
+            document.getElementById("next").disabled = true;
+            document.getElementById("prev").disabled = true;
+            document.getElementById("pause").disabled = false;
+            document.getElementById("stop").disabled = false;
             console.log("1");
             break;
 
         case 2:
-            console.log("2");
+            document.getElementById("start").disabled = true;
+            document.getElementById("next").disabled = false;
+            document.getElementById("prev").disabled = false;
+            document.getElementById("pause").disabled = true;
+            document.getElementById("stop").disabled = false;
+            clearTimeout(x);
+
             break;
 
         case 3:
+            clearTimeout(x);
+            index = 0;
+            c.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById("start").disabled = false;
+            document.getElementById("next").disabled = true;
+            document.getElementById("prev").disabled = true;
+            document.getElementById("pause").disabled = true;
+            document.getElementById("stop").disabled = true;
 
-            console.log("1");
+
             break;
         case 4:
-            getImages();
-            index++;
             console.log(index);
-            buildImage(index);
+            if (index >= 5) {
+                index = 0;
+            }
+            c.clearRect(0, 0, canvas.width, canvas.height);
+            c.drawImage(images[index++], 0, 0, 150, 150);
+            document.getElementById("start").disabled = true;
+            document.getElementById("next").disabled = false;
+            document.getElementById("prev").disabled = false;
+            document.getElementById("pause").disabled = true;
+            document.getElementById("stop").disabled = false;
             break;
         case 5:
+            console.log(index);
+            if (index < 0) {
+                index = 4;
+            }
+            c.clearRect(0, 0, canvas.width, canvas.height);
+            c.drawImage(images[index--], 0, 0, 150, 150);
+            document.getElementById("start").disabled = true;
+            document.getElementById("next").disabled = false;
+            document.getElementById("prev").disabled = false;
+            document.getElementById("pause").disabled = true;
+            document.getElementById("stop").disabled = false;
             break;
     }
-
-
-
-
 
 }

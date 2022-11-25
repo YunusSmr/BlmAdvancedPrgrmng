@@ -8,15 +8,15 @@
 </head>
 
 <body>
-    <canvas></canvas>
+    <canvas id="canvas"></canvas>
     <script src="animations.js"></script>
     <div onload="buildImages();" class="contents" id="content"></div>
     <p>
-        <input type="button" value="Start" onclick="move(1);" />
-        <input type="button" value="Pause" onclick="move(2);" />
-        <input type="button" value="Stop" onclick="move(3);" />
-        <input type="button" value="Next" onclick="move(4);" />
-        <input type="button" value="Prev" onclick="move(5);" />
+        <button id="start" value="Start" onclick="move(1);">Start</button>
+        <button id="pause" value="Pause" onclick="move(2);">Pause</button>
+        <button id="stop" value="Stop " onclick="move(3);">Stop</button>
+        <button id="next" value="Next " onclick="move(4);">Next</button>
+        <button id="prev" value="Prev " onclick="move(5);">Prev</button>
     </p>
 </body>
 
