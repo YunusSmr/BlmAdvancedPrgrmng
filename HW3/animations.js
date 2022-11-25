@@ -1,7 +1,7 @@
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
 
-document.getElementById('canvas').style.width = '600px';
+document.getElementById('canvas').style.width = '800px';
 document.getElementById('canvas').style.height = '600px';
 
 
