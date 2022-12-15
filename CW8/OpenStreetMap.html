@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://blm305.github.io/2022/work/Open_Maps.html -->
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="icon" href="https://blm305.github.io/2022/images/icon192.png">
+
+
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        h2 {
+            margin: 10px 0;
+        }
+        
+        pre {
+            overflow-x: auto;
+        }
+        
+        #one,
+        #two {
+            margin: 10px;
+        }
+        
+        #map {
+            height: 500px;
+            width: 100%;
+            margin: 0;
+            border: none;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+
+<body class="vsc-initialized">
+    <div id="one">
+        <h2 id="title">OpenStreetMap</h2>
+        <input id="but" type="button" value="Run" onclick="start()">   Zoom = <span id="out">12</span>
+        <!-- <input type=checkbox onClick="mapType(checked)">Satellite -->
+    </div>
+    <hr>
+    <div id="map" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;">
+        <div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-216.832px, 209.6px, 0px);">
+            <div class="leaflet-pane leaflet-tile-pane">
+                <div class="leaflet-layer " style="z-index: 1; opacity: 1;">
+                    <div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 17; transform: translate3d(570px, 188px, 0px) scale(0.5);"></div>
+                    <div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(380px, 126px, 0px) scale(1);"><img alt="" role="presentation" src="./OpenStreetMap_files/1535.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(230px, -181px, 0px); opacity: 1;"><img alt="" role="presentation"
+                            src="./OpenStreetMap_files/1536.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(486px, 75px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1536(1).png"
+                            class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(230px, 75px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1535(1).png" class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 256px; height: 256px; transform: translate3d(-26px, -181px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1535(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(486px, -181px, 0px); opacity: 1;">
+                        <img alt="" role="presentation" src="./OpenStreetMap_files/1536(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-26px, 75px, 0px); opacity: 1;"><img alt="" role="presentation"
+                            src="./OpenStreetMap_files/1537.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(230px, 331px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1537(1).png"
+                            class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(486px, 331px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1536(3).png" class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 256px; height: 256px; transform: translate3d(742px, 75px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1535(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(742px, -181px, 0px); opacity: 1;">
+                        <img
+                            alt="" role="presentation" src="./OpenStreetMap_files/1537(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-26px, 331px, 0px); opacity: 1;">
+                            <img alt="" role="presentation" src="./OpenStreetMap_files/1537(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(742px, 331px, 0px); opacity: 1;"><img alt="" role="presentation"
+                                src="./OpenStreetMap_files/1534.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-26px, -437px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1534(1).png"
+                                class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(230px, -437px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1535(4).png" class="leaflet-tile leaflet-tile-loaded"
+                                style="width: 256px; height: 256px; transform: translate3d(-282px, -181px, 0px); opacity: 1;"><img alt="" role="presentation" src="./OpenStreetMap_files/1534(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-282px, -437px, 0px); opacity: 1;">
+                            <img
+                                alt="" role="presentation" src="./OpenStreetMap_files/1534(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(486px, -437px, 0px); opacity: 1;">
+                                <img alt="" role="presentation" src="./OpenStreetMap_files/1536(4).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-282px, 75px, 0px); opacity: 1;"></div>
+                </div>
+            </div>
+            <div class="leaflet-pane leaflet-shadow-pane"></div>
+            <div class="leaflet-pane leaflet-overlay-pane"></div>
+            <div class="leaflet-pane leaflet-marker-pane"></div>
+            <div class="leaflet-pane leaflet-tooltip-pane"></div>
+            <div class="leaflet-pane leaflet-popup-pane"></div>
+            <div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(608786px, 393055px, 0px) scale(2048);"></div>
+        </div>
+        <div class="leaflet-control-container">
+            <div class="leaflet-top leaflet-left">
+                <div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="https://blm305.github.io/2022/work/Open_Maps.html#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out" href="https://blm305.github.io/2022/work/Open_Maps.html#"
+                        title="Zoom out" role="button" aria-label="Zoom out">−</a></div>
+            </div>
+            <div class="leaflet-top leaflet-right"></div>
+            <div class="leaflet-bottom leaflet-left"></div>
+            <div class="leaflet-bottom leaflet-right">
+                <div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com/" title="A JS library for interactive maps">Leaflet</a> | © OpenStreetMap contributors</div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="two">
+        <b>Sample code</b>
+        <pre id="sample">function init() {<br>    //initial coordinates are given: 50. Yil Parki<br>    let p = {lat:40.970021, lng:29.057876}<br>    console.log('init at', p)<br>    //L is global object from leaflet<br>    MAP = L.map('map').setView(p, 10)  //setZoom(10)<br>    let u = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'<br>    let attribution = '&amp;copy; OpenStreetMap contributors'<br>    L.tileLayer(u, {attribution}).addTo(MAP)<br>    let report = () =&gt; out.innerText = MAP.getZoom()<br>    MAP.on('zoom', report); report()<br>    MAP.on('click', e =&gt; console.log(e.latlng))<br>}</pre>
+        <hr>
+        <p></p>
+        <p>Ref:
+            <a href="https://www.openstreetmap.org/about" target="NewTab">OpenStreetMap</a>
+            <a href="https://leafletjs.com/examples" target="NewTab">Leaflet JS</a>
+        </p>
+    </div>
+
+    <link rel="stylesheet" href="./OpenStreetMap_files/leaflet.css">
+    <!-- Make sure you put JS AFTER CSS -->
+    <script src="./OpenStreetMap_files/leaflet.js.indir"></script>
+    <script>
+        "use strict"
+        var MAP //global
+        function init() {
+            //initial coordinates are given: 50. Yil Parki
+            let p = {
+                lat: 40.970021,
+                lng: 29.057876
+            }
+            console.log('init at', p)
+                //L is global object from leaflet
+            MAP = L.map('map').setView(p, 10) //setZoom(10)
+            let u = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            let attribution = '&copy; OpenStreetMap contributors'
+            L.tileLayer(u, {
+                attribution
+            }).addTo(MAP)
+            let report = () => out.innerText = MAP.getZoom()
+            MAP.on('zoom', report);
+            report()
+            MAP.on('click', e => console.log(e.latlng))
+        }
+        var incr = 0;
+
+        function stop() {
+            but.value = "Run"
+            but.onclick = start
+            incr = 0
+        }
+
+        function start() {
+            but.value = "Stop"
+            but.onclick = stop
+            incr = 1;
+            zoom()
+        }
+
+        function zoom() {
+            if (incr == 0) return
+            let MIN = 5,
+                MAX = MAP.getMaxZoom()
+            let z = MAP.getZoom() + incr
+            MAP.setZoom(z)
+            setTimeout(zoom, 700)
+            if (z <= MIN) incr = 1
+            if (z >= MAX) incr = -1
+        }
+        title.innerText = document.title
+        sample.innerText = init;
+        init()
+    </script>
+
+
+
+</body>
+
+</html>
