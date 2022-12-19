@@ -1,555 +1,697 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href="https://www.pngfind.com/pngs/m/273-2733257_icon-weather-portal-comments-weather-icons-png-white.png" />
+    <link
+      rel="icon"
+      href="https://www.pngfind.com/pngs/m/273-2733257_icon-weather-portal-comments-weather-icons-png-white.png"
+    />
     <title>OpenStreetMap</title>
     <style>
-        body {
-            max-width: 450px;
-            margin: 0;
-        }
-        
-        div {
-            display: inline-block;
-            margin: 12px;
-            vertical-align: top;
-        }
-        
-        p {
-            margin: 15px;
-        }
-        
-        b {
-            font-size: 18px;
-        }
-        
-        pre {
-            overflow-x: auto;
-            font-size: 14px;
-        }
-        
-        .dar {
-            width: 42%;
-        }
-        
-        #main {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            background: #9cf;
-            font-size: 24px;
-            margin: 0;
-        }
-        
-        #yer {
-            margin: 10px;
-        }
-        
-        #err {
-            color: red;
-        }
-        
-        svg,
-        canvas {
-            background: yellow;
-            font: 10px arial, sans-serif;
-        }
-        
-        circle {
-            fill: yellow;
-            stroke: blue;
-            stroke-width: 4;
-        }
-        
-        rect {
-            fill: pink;
-            stroke: red;
-            stroke-width: 5;
-        }
-        
-        img {
-            width: 50px;
-            height: 50px;
-        }
-        
-        body {
-            margin: 0;
-        }
-        
-        h2 {
-            margin: 10px 0;
-        }
-        
-        pre {
-            overflow-x: auto;
-        }
-        
-        #one,
-        #two {
-            margin: 10px;
-        }
-        
-        #map {
-            height: 500px;
-            width: 100%;
-            margin: 0;
-            border: none;
-            cursor: crosshair;
-        }
-    </style>
-</head>
+      body {
+        max-width: 450px;
+        margin: 0;
+      }
 
-<body>
+      div {
+        display: inline-block;
+        margin: 12px;
+        vertical-align: top;
+      }
+
+      p {
+        margin: 15px;
+      }
+
+      b {
+        font-size: 18px;
+      }
+
+      pre {
+        overflow-x: auto;
+        font-size: 14px;
+      }
+
+      .dar {
+        width: 42%;
+      }
+
+      #main {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        background: #9cf;
+        font-size: 24px;
+        margin: 0;
+      }
+
+      #yer {
+        margin: 10px;
+      }
+
+      #err {
+        color: red;
+      }
+
+      svg,
+      canvas {
+        background: yellow;
+        font: 10px arial, sans-serif;
+      }
+
+      circle {
+        fill: yellow;
+        stroke: blue;
+        stroke-width: 4;
+      }
+
+      rect {
+        fill: pink;
+        stroke: red;
+        stroke-width: 5;
+      }
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      h2 {
+        margin: 10px 0;
+      }
+
+      pre {
+        overflow-x: auto;
+      }
+
+      #one,
+      #two {
+        margin: 10px;
+      }
+
+      #map {
+        height: 500px;
+        width: 100%;
+        margin: 0;
+        border: none;
+        cursor: crosshair;
+      }
+    </style>
+  </head>
+
+  <body>
     <div>
-        <input id="mahal" type="text" value="41 29" style="display: none;" />
+      <input id="mahal" type="text" value="41 29" style="display: none;" />
     </div>
     <h2 id="title">OpenStreetMap</h2>
-    <canvas id="myCanvas" width="450" height="200" style="border: 4px solid rgb(241, 6, 26);"></canvas>
+    <canvas
+      id="myCanvas"
+      width="450"
+      height="200"
+      style="border: 4px solid rgb(241, 6, 26);"
+    ></canvas>
 
     <div id="one">
-        <input id="but" type="button" value="Run" onclick="start()" /> Zoom =
-        <span id="out">12</span>
-        <p id="local">location</p>
-        <!-- <input type=checkbox onClick="mapType(checked)">Satellite -->
+      <input id="but" type="button" value="Run" onclick="start()" />
+      Zoom =
+      <span id="out">12</span>
+      <p id="local">location</p>
+      <!-- <input type=checkbox onClick="mapType(checked)">Satellite -->
     </div>
 
     <div id="main," style="display: none;">
-        <p id="yer">location</p>
-        <p>
-            <img id="icon" />
-            <span id="hava">weather</span>
-        </p>
+      <p id="yer">location</p>
+      <p>
+        <img id="icon" />
+        <span id="hava">weather</span>
+      </p>
     </div>
 
     <div class="dar," style="display: none;">
-        <b>Detail</b>
-        <pre id="detay">detail</pre>
+      <b>Detail</b>
+      <pre id="detay">detail</pre>
     </div>
     <div class="dar," style="display: none;">
-        <b>Sun</b>
-        <pre id="gunes">sunrise</pre>
+      <b>Sun</b>
+      <pre id="gunes">sunrise</pre>
     </div>
 
     <hr />
-    <div id="map" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;">
-        <div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-216.832px, 209.6px, 0px);">
-            <div class="leaflet-pane leaflet-tile-pane">
-                <div class="leaflet-layer" style="z-index: 1; opacity: 1;">
-                    <div class="leaflet-tile-container leaflet-zoom-animated" style="
+    <div
+      id="map"
+      class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
+      tabindex="0"
+      style="position: relative;"
+    >
+      <div
+        class="leaflet-pane leaflet-map-pane"
+        style="transform: translate3d(-216.832px, 209.6px, 0px);"
+      >
+        <div class="leaflet-pane leaflet-tile-pane">
+          <div class="leaflet-layer" style="z-index: 1; opacity: 1;">
+            <div
+              class="leaflet-tile-container leaflet-zoom-animated"
+              style="
                 z-index: 17;
                 transform: translate3d(570px, 188px, 0px) scale(0.5);
-              "></div>
-                    <div class="leaflet-tile-container leaflet-zoom-animated" style="
+              "
+            ></div>
+            <div
+              class="leaflet-tile-container leaflet-zoom-animated"
+              style="
                 z-index: 18;
                 transform: translate3d(380px, 126px, 0px) scale(1);
-              ">
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1535.png" class="leaflet-tile leaflet-tile-loaded" style="
+              "
+            >
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1535.png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(230px, -181px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1536.png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1536.png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(486px, 75px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1536(1).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1536(1).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(230px, 75px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1535(1).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1535(1).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(-26px, -181px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1535(2).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1535(2).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(486px, -181px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1536(2).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1536(2).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(-26px, 75px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1537.png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1537.png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(230px, 331px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1537(1).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1537(1).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(486px, 331px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1536(3).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1536(3).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(742px, 75px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1535(3).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1535(3).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(742px, -181px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1537(2).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1537(2).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(-26px, 331px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1537(3).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1537(3).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(742px, 331px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1534.png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1534.png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(-26px, -437px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1534(1).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1534(1).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(230px, -437px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1535(4).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1535(4).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(-282px, -181px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1534(2).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1534(2).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(-282px, -437px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1534(3).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1534(3).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(486px, -437px, 0px);
                   opacity: 1;
-                " />
-                        <img alt="" role="presentation" src="./OpenStreetMap_files/1536(4).png" class="leaflet-tile leaflet-tile-loaded" style="
+                "
+              />
+              <img
+                alt=""
+                role="presentation"
+                src="./OpenStreetMap_files/1536(4).png"
+                class="leaflet-tile leaflet-tile-loaded"
+                style="
                   width: 256px;
                   height: 256px;
                   transform: translate3d(-282px, 75px, 0px);
                   opacity: 1;
-                " />
-                    </div>
-                </div>
+                "
+              />
             </div>
-            <div class="leaflet-pane leaflet-shadow-pane"></div>
-            <div class="leaflet-pane leaflet-overlay-pane"></div>
-            <div class="leaflet-pane leaflet-marker-pane"></div>
-            <div class="leaflet-pane leaflet-tooltip-pane"></div>
-            <div class="leaflet-pane leaflet-popup-pane"></div>
-            <div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(608786px, 393055px, 0px) scale(2048);"></div>
+          </div>
         </div>
-        <div class="leaflet-control-container">
-            <div class="leaflet-top leaflet-left">
-                <div class="leaflet-control-zoom leaflet-bar leaflet-control">
-                    <a class="leaflet-control-zoom-in" href="https://blm305.github.io/2022/work/Open_Maps.html#" title="Zoom in" role="button" aria-label="Zoom in">
+        <div class="leaflet-pane leaflet-shadow-pane"></div>
+        <div class="leaflet-pane leaflet-overlay-pane"></div>
+        <div class="leaflet-pane leaflet-marker-pane"></div>
+        <div class="leaflet-pane leaflet-tooltip-pane"></div>
+        <div class="leaflet-pane leaflet-popup-pane"></div>
+        <div
+          class="leaflet-proxy leaflet-zoom-animated"
+          style="transform: translate3d(608786px, 393055px, 0px) scale(2048);"
+        ></div>
+      </div>
+      <div class="leaflet-control-container">
+        <div class="leaflet-top leaflet-left">
+          <div class="leaflet-control-zoom leaflet-bar leaflet-control">
+            <a
+              class="leaflet-control-zoom-in"
+              href="https://blm305.github.io/2022/work/Open_Maps.html#"
+              title="Zoom in"
+              role="button"
+              aria-label="Zoom in"
+            >
               +
             </a>
-                    <a class="leaflet-control-zoom-out" href="https://blm305.github.io/2022/work/Open_Maps.html#" title="Zoom out" role="button" aria-label="Zoom out">
+            <a
+              class="leaflet-control-zoom-out"
+              href="https://blm305.github.io/2022/work/Open_Maps.html#"
+              title="Zoom out"
+              role="button"
+              aria-label="Zoom out"
+            >
               −
             </a>
-                </div>
-            </div>
-            <div class="leaflet-top leaflet-right"></div>
-            <div class="leaflet-bottom leaflet-left"></div>
-            <div class="leaflet-bottom leaflet-right">
-                <div class="leaflet-control-attribution leaflet-control">
-                    <a href="https://leafletjs.com/" title="A JS library for interactive maps">
-              Leaflet
-            </a> | © OpenStreetMap contributors
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="leaflet-top leaflet-right"></div>
+        <div class="leaflet-bottom leaflet-left"></div>
+        <div class="leaflet-bottom leaflet-right">
+          <div class="leaflet-control-attribution leaflet-control">
+            <a
+              href="https://leafletjs.com/"
+              title="A JS library for interactive maps"
+            >
+              Leaflet
+            </a>
+            | © OpenStreetMap contributors
+          </div>
+        </div>
+      </div>
     </div>
     <hr />
     <div id="two">
-        <b>Sample code</b>
-        <pre id="sample">function init() {<br>    //initial coordinates are given: 50. Yil Parki<br>    let p = {lat:40.970021, lng:29.057876}<br>    console.log('init at', p)<br>    //L is global object from leaflet<br>    MAP = L.map('map').setView(p, 10)  //setZoom(10)<br>    let u = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'<br>    let attribution = '&amp;copy; OpenStreetMap contributors'<br>    L.tileLayer(u, {attribution}).addTo(MAP)<br>    let report = () =&gt; out.innerText = MAP.getZoom()<br>    MAP.on('zoom', report); report()<br>    MAP.on('click', e =&gt; console.log(e.latlng))<br>}</pre>
+      <b>Sample code</b>
+      <pre
+        id="sample"
+      >function init() {<br>    //initial coordinates are given: 50. Yil Parki<br>    let p = {lat:40.970021, lng:29.057876}<br>    console.log('init at', p)<br>    //L is global object from leaflet<br>    MAP = L.map('map').setView(p, 10)  //setZoom(10)<br>    let u = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'<br>    let attribution = '&amp;copy; OpenStreetMap contributors'<br>    L.tileLayer(u, {attribution}).addTo(MAP)<br>    let report = () =&gt; out.innerText = MAP.getZoom()<br>    MAP.on('zoom', report); report()<br>    MAP.on('click', e =&gt; console.log(e.latlng))<br>}</pre>
     </div>
 
     <link rel="stylesheet" href="./OpenStreetMap_files/leaflet.css" />
     <!-- Make sure you put JS AFTER CSS -->
     <script src="./OpenStreetMap_files/leaflet.js.indir"></script>
     <div>
-        <p id="err">
-            You need an API key for openweathermap.org
-            <a href="https://openweathermap.org/appid" target="NewTab">here</a>
-        </p>
+      <p id="err">
+        You need an API key for openweathermap.org
+        <a href="https://openweathermap.org/appid" target="NewTab">here</a>
+      </p>
     </div>
 
     <script>
-        'use strict'
-        var MAP //global
-        var c = document.getElementById('myCanvas')
-        var cont = c.getContext('2d')
+      'use strict'
+      var MAP //global
+      var c = document.getElementById('myCanvas')
+      var cont = c.getContext('2d')
 
-        function init() {
-            //initial coordinates are given: 50. Yil Parki
-            let p = {
-                lat: 40.970021,
-                lng: 29.057876,
-            }
-            console.log('init at', p)
-                //L is global object from leaflet
-            MAP = L.map('map').setView(p, 10) //setZoom(10)
-            let u = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-            let attribution = '&copy; OpenStreetMap contributors'
-            L.tileLayer(u, {
-                attribution,
-            }).addTo(MAP)
-            let report = () => (out.innerText = MAP.getZoom())
-            MAP.on('zoom', report)
-            report()
-
-            MAP.on('click', (e) => {
-                lat = e.latlng.lat;
-                lon = e.latlng.lng;
-                MAP.panTo(e.latlng);
-                askWeather()
-            })
+      function init() {
+        //initial coordinates are given: 50. Yil Parki
+        let p = {
+          lat: 40.970021,
+          lng: 29.057876,
         }
-        var incr = 0
+        console.log('init at', p)
+        //L is global object from leaflet
+        MAP = L.map('map').setView(p, 10) //setZoom(10)
+        let u = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        let attribution = '&copy; OpenStreetMap contributors'
+        L.tileLayer(u, {
+          attribution,
+        }).addTo(MAP)
+        let report = () => (out.innerText = MAP.getZoom())
+        MAP.on('zoom', report)
+        report()
 
-        function stop() {
-            but.value = 'Run'
-            but.onclick = start
-            incr = 0
-        }
+        MAP.on('click', (e) => {
+          lat = e.latlng.lat
+          lon = e.latlng.lng
+          MAP.panTo(e.latlng)
+          askWeather()
+        })
+      }
+      var incr = 0
 
-        function start() {
-            but.value = 'Stop'
-            but.onclick = stop
-            incr = 1
-            zoom()
-        }
+      function stop() {
+        but.value = 'Run'
+        but.onclick = start
+        incr = 0
+      }
 
-        function zoom() {
-            if (incr == 0) return
-            let MIN = 5,
-                MAX = MAP.getMaxZoom()
-            let z = MAP.getZoom() + incr
-            MAP.setZoom(z)
-            setTimeout(zoom, 700)
-            if (z <= MIN) incr = 1
-            if (z >= MAX) incr = -1
-        }
-        title.innerText = document.title
-        sample.innerText = init
-        init()
+      function start() {
+        but.value = 'Stop'
+        but.onclick = stop
+        incr = 1
+        zoom()
+      }
 
-        function toHM(t) {
-            // t in seconds -- convert to minutes
-            //number of hours since midnight, in local time
-            let h = (t % 86400) / 3600 // 0<=h<24
-            let m = (h % 1) * 60 // 0<=m<60
-            let twoDigits = (t) => (t < 10 ? '0' : '') + Math.trunc(t)
-            return twoDigits(h) + ':' + twoDigits(m + 0.5) //round
-        }
-        async function toJSON(url) {
-            let r = await fetch(url)
-            if (!r.ok) error(r.statusText)
-            return r.json()
-        }
-        // Location
-        var lat, lon //global values
-        async function askLocation() {
-            let name = 'geolocation'
-            let result = await navigator.permissions.query({
-                name,
-            })
-            if (result.state == 'denied') {
-                let url = 'https://ipinfo.io/json'
-                toJSON(url).then(getLocation2, error)
-            } else {
-                navigator.geolocation.getCurrentPosition(getLocation1, error)
-            }
-        }
+      function zoom() {
+        if (incr == 0) return
+        let MIN = 5,
+          MAX = MAP.getMaxZoom()
+        let z = MAP.getZoom() + incr
+        MAP.setZoom(z)
+        setTimeout(zoom, 700)
+        if (z <= MIN) incr = 1
+        if (z >= MAX) incr = -1
+      }
+      title.innerText = document.title
+      sample.innerText = init
+      init()
 
-        function getLocation2(p) {
-            //Approximate
-            console.log('ipinfo.io', p.city)
-            let [x, y] = p.loc.split(',')
-            lat = Number(x)
-            lon = Number(y)
-            askWeather()
+      function toHM(t) {
+        // t in seconds -- convert to minutes
+        //number of hours since midnight, in local time
+        let h = (t % 86400) / 3600 // 0<=h<24
+        let m = (h % 1) * 60 // 0<=m<60
+        let twoDigits = (t) => (t < 10 ? '0' : '') + Math.trunc(t)
+        return twoDigits(h) + ':' + twoDigits(m + 0.5) //round
+      }
+      async function toJSON(url) {
+        let r = await fetch(url)
+        if (!r.ok) error(r.statusText)
+        return r.json()
+      }
+      // Location
+      var lat, lon //global values
+      async function askLocation() {
+        let name = 'geolocation'
+        let result = await navigator.permissions.query({
+          name,
+        })
+        if (result.state == 'denied') {
+          let url = 'https://ipinfo.io/json'
+          toJSON(url).then(getLocation2, error)
+        } else {
+          navigator.geolocation.getCurrentPosition(getLocation1, error)
         }
+      }
 
-        function getLocation1(p) {
-            //Accurate
-            console.log('getCurrentPosition')
-            lat = p.coords.latitude
-            lon = p.coords.longitude
-            askWeather()
+      function getLocation2(p) {
+        //Approximate
+        console.log('ipinfo.io', p.city)
+        let [x, y] = p.loc.split(',')
+        lat = Number(x)
+        lon = Number(y)
+        askWeather()
+      }
+
+      function getLocation1(p) {
+        //Accurate
+        console.log('getCurrentPosition')
+        lat = p.coords.latitude
+        lon = p.coords.longitude
+        askWeather()
+      }
+      // Weather
+      var accessKey
+      async function askWeather() {
+        cont.clearRect(0, 0, 450, 200)
+
+        console.log(lat, lon)
+        const U = 'https://api.openweathermap.org/data/2.5/weather?'
+        let url = U + 'lat=' + lat + '&lon=' + lon + '&APPID=' + accessKey
+        hava.innerText = 'getting weather'
+        detay.innerText = ''
+        gunes.innerText = ''
+        let data = await toJSON(url)
+        //  fetch(url).then(r => r.json()).then(showWeather)
+        // }
+        // function showWeather(data) {
+        let w = data.weather[0]
+        showIcon(w.icon)
+        let celsius = convert(data.main.temp).toFixed(0)
+        let hh = w.main + '  ' + celsius + '°',
+          { sys } = data
+        let yy = data.name + ', ' + sys.country
+        hava.innerText = hh
+        yer.innerText = yy
+        lat = data.coord.lat
+        lon = data.coord.lon
+        mahal.value = lat.toFixed(2) + ', ' + lon.toFixed(2)
+        let regionNames = new Intl.DisplayNames(['en'], {
+          type: 'region',
+        })
+        console.log(regionNames.of(sys.country))
+
+        local.innerText = regionNames.of(sys.country)
+        let wind = (3.6 * data.wind.speed).toFixed(0)
+        let pres = (0.750062 * data.main.pressure).toFixed(0)
+        const WIND = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N']
+        let d = (data.wind.deg / 45).toFixed(0)
+        detay.innerText =
+          hh + //+'\n'+yy +'\n['+mahal.value+"]"
+          '\nWind  ' +
+          wind +
+          ' km/h ' +
+          WIND[d] +
+          '\nPressure  ' +
+          pres +
+          ' mm' +
+          '\nHumidity  %' +
+          data.main.humidity
+        let { sunrise, sunset } = sys,
+          noon = (sunrise + sunset) / 2
+        gunes.innerText =
+          'Rise ' +
+          toHM(sunrise + data.timezone) +
+          '\nNoon ' +
+          toHM(noon + data.timezone) +
+          '\nSet  ' +
+          toHM(sunset + data.timezone) +
+          '\nZone ' +
+          data.timezone / 3600
+        console.log(hh, yy, 'Wind ' + data.wind.deg + '° ' + WIND[d])
+        Location(yy)
+        Result(hh)
+      }
+
+      function showIcon(i) {
+        const URL = 'https://openweathermap.org/img/w/'
+        icon.src = URL + i + '.png'
+        document.querySelector('link').href = icon.src
+        image(URL + i + '.png')
+      }
+
+      function convert(kelvin) {
+        return kelvin - 273.15
+        //return celsius*1.8 + 32
+      }
+      // Interaction
+      function askUser() {
+        let k = prompt('Please enter openweather key:')
+        if (!k) error('You need an API key')
+        return k
+      }
+
+      function error(e) {
+        main.style.display = 'none' //hide
+        //refs.style.display = "none";
+        err.style.display = '' //show
+        throw e
+      }
+
+      function getAPIkey() {
+        if (origin.startsWith('http') && localStorage) {
+          if (!localStorage.keys) localStorage.keys = '{}'
+          let keys = JSON.parse(localStorage.keys)
+          if (!keys.openweather) {
+            keys.openweather = askUser()
+            localStorage.keys = JSON.stringify(keys)
+          }
+          accessKey = keys.openweather
+        } else {
+          //cannot use localStorage
+          accessKey = askUser()
         }
-        // Weather
-        var accessKey
-        async function askWeather() {
-            cont.clearRect(0, 0, 450, 200);
-
-
-            console.log(lat, lon)
-            const U = 'https://api.openweathermap.org/data/2.5/weather?'
-            let url = U + 'lat=' + lat + '&lon=' + lon + '&APPID=' + accessKey
-            hava.innerText = 'getting weather'
-            detay.innerText = ''
-            gunes.innerText = ''
-            let data = await toJSON(url)
-                //  fetch(url).then(r => r.json()).then(showWeather)
-                // }
-                // function showWeather(data) {
-            let w = data.weather[0]
-            showIcon(w.icon)
-            let celsius = convert(data.main.temp).toFixed(0)
-            let hh = w.main + '  ' + celsius + '°',
-                {
-                    sys
-                } = data
-            let yy = data.name + ', ' + sys.country
-            hava.innerText = hh
-            yer.innerText = yy
-            lat = data.coord.lat
-            lon = data.coord.lon
-            mahal.value = lat.toFixed(2) + ', ' + lon.toFixed(2)
-            let regionNames = new Intl.DisplayNames(['en'], {
-                type: 'region'
-            });
-            console.log(regionNames.of(sys.country));
-
-            local.innerText = regionNames.of(sys.country);
-            let wind = (3.6 * data.wind.speed).toFixed(0)
-            let pres = (0.750062 * data.main.pressure).toFixed(0)
-            const WIND = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N']
-            let d = (data.wind.deg / 45).toFixed(0)
-            detay.innerText =
-                hh + //+'\n'+yy +'\n['+mahal.value+"]"
-                '\nWind  ' +
-                wind +
-                ' km/h ' +
-                WIND[d] +
-                '\nPressure  ' +
-                pres +
-                ' mm' +
-                '\nHumidity  %' +
-                data.main.humidity
-            let {
-                sunrise,
-                sunset
-            } = sys,
-            noon = (sunrise + sunset) / 2
-            gunes.innerText =
-                'Rise ' +
-                toHM(sunrise + data.timezone) +
-                '\nNoon ' +
-                toHM(noon + data.timezone) +
-                '\nSet  ' +
-                toHM(sunset + data.timezone) +
-                '\nZone ' +
-                data.timezone / 3600
-            console.log(hh, yy, 'Wind ' + data.wind.deg + '° ' + WIND[d])
-            Location(yy)
-            Result(hh)
+      }
+      err.style.display = 'none'
+      getAPIkey()
+      askLocation()
+      mahal.onkeyup = (e) => {
+        let t = e.target
+        if (e.keyCode === 13) {
+          ;[lat, lon] = mahal.value.split(/[ ,]+/)
+          askWeather()
         }
+        if (e.keyCode === 27) t.blur()
+      }
 
-        function showIcon(i) {
-            const URL = 'https://openweathermap.org/img/w/'
-            icon.src = URL + i + '.png'
-            document.querySelector('link').href = icon.src
-            image(URL + i + '.png')
+      function image(imageSrc) {
+        cont.beginPath()
+        cont.arc(230, 50, 40, 0, 2 * Math.PI)
+        cont.stroke()
+        let base_image = new Image()
+        base_image.src = imageSrc
+        base_image.onload = function () {
+          cont.drawImage(base_image, 180, 0, 100, 100)
         }
+      }
 
-        function convert(kelvin) {
-            return kelvin - 273.15
-                //return celsius*1.8 + 32
-        }
-        // Interaction
-        function askUser() {
-            let k = prompt('Please enter openweather key:')
-            if (!k) error('You need an API key')
-            return k
-        }
+      function Location(Location) {
+        cont.font = '40px Calibri'
+        cont.fillText(Location, 120, 130)
+      }
 
-        function error(e) {
-            main.style.display = 'none' //hide
-                //refs.style.display = "none";
-            err.style.display = '' //show
-            throw e
-        }
-
-        function getAPIkey() {
-            if (origin.startsWith('http') && localStorage) {
-                if (!localStorage.keys) localStorage.keys = '{}'
-                let keys = JSON.parse(localStorage.keys)
-                if (!keys.openweather) {
-                    keys.openweather = askUser()
-                    localStorage.keys = JSON.stringify(keys)
-                }
-                accessKey = keys.openweather
-            } else {
-                //cannot use localStorage
-                accessKey = askUser()
-            }
-        }
-        err.style.display = 'none'
-        getAPIkey()
-        askLocation()
-        mahal.onkeyup = (e) => {
-            let t = e.target
-            if (e.keyCode === 13) {;
-                [lat, lon] = mahal.value.split(/[ ,]+/)
-                askWeather()
-            }
-            if (e.keyCode === 27) t.blur()
-        }
-
-
-        function image(imageSrc) {
-            cont.beginPath()
-            cont.arc(230, 50, 40, 0, 2 * Math.PI)
-            cont.stroke()
-            let base_image = new Image()
-            base_image.src = imageSrc
-            base_image.onload = function() {
-                cont.drawImage(base_image, 180, 0, 100, 100)
-            }
-        }
-
-
-        function Location(Location) {
-            cont.font = '40px Calibri'
-            cont.fillText(Location, 120, 130)
-        }
-
-        function Result(Result) {
-            cont.font = '25px Calibri'
-            cont.fillText(Result, 180, 170)
-        }
+      function Result(Result) {
+        cont.font = '25px Calibri'
+        cont.fillText(Result, 180, 170)
+      }
     </script>
-</body>
-
+  </body>
 </html>
