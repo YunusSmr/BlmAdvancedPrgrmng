@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded' , () => {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }).catch(function(err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      }
     const bird = document.querySelector('.bird')
     const gameDisplay = document.querySelector('.game-container')
     const ground = document.querySelector('.ground-moving')
@@ -35,9 +45,10 @@ document.addEventListener('DOMContentLoaded' , () => {
     function jump() {
         if (birdBottom < 500) birdBottom += 50
         bird.style.bottom = birdBottom + 'px'
-        console.log(birdBottom)
+        //console.log(birdBottom)
     }
     document.addEventListener('keyup', control)
+    document.addEventListener('touchend',control)
     document.addEventListener('keyup', reGame)
     document.addEventListener('click', control)
 
@@ -90,12 +101,15 @@ document.addEventListener('DOMContentLoaded' , () => {
         isGameOver = true
         document.removeEventListener('keyup', control)
         document.removeEventListener('click', control)
+        document.removeEventListener('touchend',control)
         ground.classList.add('ground')
         ground.classList.remove('ground-moving')
     }
 
     function reGame(e) {
         if (e.keyCode == 13) {
+        
+            this.location.reload();
            console.log("new game")
            
         }
