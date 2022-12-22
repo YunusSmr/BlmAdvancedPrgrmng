@@ -3,7 +3,7 @@ body {
 }
 
 .game-container {
-  width: 400px;
+  width: 500px;
   height: 730px;
   position: absolute;
   left: 0px;
@@ -19,7 +19,7 @@ body {
 }
 
 .border-top {
-  width: 660px;
+  width: 500px;
   height: 50px;
   position: absolute;
   background-color: white;
@@ -41,7 +41,7 @@ body {
   position: absolute;
   top: 580px;
   z-index: +1;
-  left: -80px;
+  left: 80px;
 }
 
 .bird {
@@ -91,13 +91,14 @@ body {
   width: 580px;
   left: 80px;
   position: absolute;
+  left: -80px;
 }
 
 .ground-moving {
   position: absolute;
   top: 580px;
   height: 150px;
-  left: -80px;
+  left: 80px;
   background-image: url('bottom-background.png');
   background-repeat: repeat-x;
   animation: slideright 100s infinite linear;
@@ -106,11 +107,11 @@ body {
   z-index: +1;
 }
 
-@media screen and (max-width: 800px) {
-  .game-container,
-  .ground-container
-  .sky{
-    width: 100%;
-     /* The width is 100%, when the viewport is 800px or smaller */
-  }
+@media all and (max-width: 500px) { 
+  .border-right{
+    width: 0%;
+
+  } 
+
+  
 }
