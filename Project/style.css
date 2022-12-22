@@ -8,7 +8,36 @@ body {
   position: absolute;
   left: 0px;
 }
+#p1 {
+  color:red;
+  position: absolute;
+  left: 100px; 
+  top: 10px;
+  font-family: cursive;
+  font-size:x-large;
+}
 
+#p2 {
+  color: black;
+  position: absolute;
+   left: 400px; 
+  top: 10px;
+  font-family: cursive;
+  font-size: x-large;
+}
+
+#score {
+  color: #E43F5A;
+}
+
+#high {
+  color:black;
+}
+.scoreDisplay{
+width: 200px;
+height: 100px;
+  top: 15px;
+}
 .border-right {
   width: 80px;
   height: 790px;
@@ -87,7 +116,7 @@ body {
 }
 
 .ground-container {
-  height: 150px;
+  height: 100px;
   width: 580px;
   left: 80px;
   position: absolute;
@@ -106,6 +135,7 @@ body {
   width: 100%;
   z-index: +1;
 }
+
 
 @media all and (max-width: 500px) { 
   .border-right{
