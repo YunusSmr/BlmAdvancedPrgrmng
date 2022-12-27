@@ -11,19 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('ServiceWorker registration failed: ')
       })
   }
+  let flyAudio = document.querySelector('#audio')
+  let scoreAudio = document.querySelector('#audio2')
+  let hitAudio = document.querySelector('#audio3')
+  flyAudio.volume = 0.3
+  scoreAudio.volume = 0.3
+  hitAudio.volume=0.5
   const bird = document.querySelector('.bird')
+  const sky = document.querySelector('.sky')
   const gameDisplay = document.querySelector('.game-container')
   const ground = document.querySelector('.ground-moving')
+  const heart = document.createElement('div')
 
   let birdLeft = 100
   let birdBottom = 200
+  let hearttop
   let gravity = 1
   let isGameOver = false
   let gap = 430
   var score = 0
-  var heartcount = 0
+  var heartcount = 3
   var high = [0]
-  let timer = 20
+  let timer = 10
   let speed = 3000
 
   if (localStorage.getItem('high') === null) {
@@ -35,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('high').innerHTML = getMax(
     JSON.parse(localStorage.getItem('high')),
   )
+  document.getElementById('p3').innerHTML = heartcount
 
   function startGame() {
     birdBottom -= gravity
@@ -44,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bird.style.left = birdLeft + 'px'
   }
+
+  
 
   function getMax(arr) {
     if (!arr) {
@@ -68,12 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function jump() {
     if (birdBottom < 500) birdBottom += 50
     bird.style.bottom = birdBottom + 'px'
+    flyAudio.play()
     //console.log(birdBottom)
   }
 
   document.addEventListener('keyup', control)
   document.addEventListener('click', jump)
-  document.addEventListener('keyup', reGame)
 
   function generateObstacle() {
     let obstacleLeft = 400
@@ -116,10 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
       ) {
         if (heartcount > 0) {
           heartcount--
+          document.getElementById('p3').innerHTML = heartcount
           clearInterval(timerId)
           gameDisplay.removeChild(obstacle)
           gameDisplay.removeChild(topObstacle)
+          hitAudio.play()
         } else {
+          hitAudio.play()
           high.push(score)
           localStorage.setItem('high', JSON.stringify(high))
           gameOver()
@@ -127,38 +142,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
+
     let timerId = setInterval(moveObstacle, timer)
-    if (!isGameOver) setTimeout(generateObstacle, speed)
-    if (score % 3 == 0 && score != 0) {
-      timer -= 3
-      speed -= 500
+    if (!isGameOver) {
+      setTimeout(generateObstacle, speed)
+    }
+    if (score % 5 == 0 && score != 0) {
+      speed -= 200
     }
   }
-  function generateHeart() {
-    let heartLeft = 100
-    let randomtop = Math.floor(Math.random() * (400 - 250) + 250)
-    let hearttop = randomtop
-    const heart = document.createElement('div')
-    if (!isGameOver) {
-      heart.classList.add('heart')
-    }
-    gameDisplay.appendChild(heart)
 
-    heart.style.left = heartLeft + 'px'
+  function generateHeart() {
+   // console.log('oluşturuldu')
+    let heartLeft = 100
+    let randomtop = Math.floor(Math.random() * (400 - 150) + 150)
+    hearttop = randomtop
+    heart.classList.add('heart')
+    sky.appendChild(heart)
 
     heart.style.top = hearttop + 'px'
+    heart.style.left = heartLeft + 'px'
 
-    if (!isGameOver) setTimeout(generateHeart, 10000)
+    if (!isGameOver) {
+      setTimeout(generateHeart, 10000)
+    }
+  }
 
-    //console.log(birdBottom + 45)
-    if (birdBottom + 45 > 250) {
+  function check() {
+    /*
+    console.log('heart :', 520 - hearttop)
+    console.log('bird :', birdBottom)
+    console.log(sky.childNodes.length);
+*/
+    if (birdBottom > 520 - hearttop&&sky.childNodes.length>5) {
+     // console.log('aldı')
       heartcount++
-      gameDisplay.removeChild(heart)
+      document.getElementById('p3').innerHTML = heartcount
+      scoreAudio.play()
+      try {
+        sky.removeChild(heart)
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }
+    if (!isGameOver) {
+      setTimeout(check, 100)
     }
   }
 
   generateObstacle()
   generateHeart()
+  check()
 
   function gameOver() {
     clearInterval(gameTimerId)
@@ -168,12 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.removeEventListener('click', jump)
     ground.classList.add('ground')
     ground.classList.remove('ground-moving')
+    document.getElementById("gameover").style.display = "inline";
   }
 
-  function reGame(e) {
-    if (e.keyCode == 13) {
-      this.location.reload()
-      console.log('new game')
-    }
-  }
+  
 })

@@ -11,11 +11,15 @@
 
   <body>
     <div class="game-container">
-      
+   
       <div class="border-top"></div>
       <div class="sky">
-        <div class="heart"><p id="heart">0</p></div>
         <div class="bird"></div>
+        <div class="heart"><p id="p3">0</p></div>
+      </div>
+      <div class="screen" id="gameover" style="display:none;">
+        <h2>Game Over</h2>
+        <button class="buton" onclick="reGame()">Start Game</button>
       </div>
     </div>
     <div class="ground-container">
@@ -23,7 +27,19 @@
       <p id="p2">High Score:<span id="high"></span></p>
       <div class="ground-moving"></div>
     </div>
+    
+
     <div class="border-right"></div>
+    <audio id="audio" src="./sounds_fly.mp3"></audio>
+    <audio id="audio2" src="./sounds_score.mp3"></audio>
+    <audio id="audio3" src="./res_audio_hit.mp3"></audio>
+
+    <script>
+      function reGame() {
+      this.location.reload()
+      console.log('new game')
+  }
+  </script>
   </body>
 </html>
 

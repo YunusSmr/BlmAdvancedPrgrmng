@@ -40,6 +40,7 @@
 
   width: 35%;
   height: 85%;
+  min-width: 250px;
 
   border-radius: 3px;
   border: solid 1px rgba(150, 150, 150, 0.3);
@@ -60,6 +61,7 @@
 
 .inner_panel {
   width: 100%;
+  min-width: 250px;
   margin: 20px;
   margin-bottom: 100px;
 }
@@ -68,6 +70,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  min-width: 250px;
 }
 
 .link {
@@ -143,7 +146,7 @@
   bottom: 0;
   text-align: center;
 
-  width: 95%;
+  width: 75%;
   height: 95%;
 
   margin-top: 5%;
@@ -165,8 +168,8 @@
 }
 
 .inner_panel_mobile {
-  width: 100%;
-  width: 100%;
+  width: 75%;
+  min-width: 250px;
   min-height: 400px;
   margin: 20px;
   height: auto;

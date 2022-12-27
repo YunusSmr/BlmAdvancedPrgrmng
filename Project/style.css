@@ -9,33 +9,33 @@ body {
   left: 0px;
 }
 #p1 {
-  color:red;
+  color: red;
   position: absolute;
-  left: 100px; 
+  left: 100px;
   top: 20px;
   font-family: Arial, sans-serif;
-  font-size:x-large;
+  font-size: x-large;
 }
 
 #p2 {
   color: black;
   position: absolute;
-  left: 400px; 
+  left: 400px;
   top: 20px;
   font-family: Arial, sans-serif;
   font-size: x-large;
 }
 
 #score {
-  color: #E43F5A;
+  color: #e43f5a;
 }
 
 #high {
-  color:black;
+  color: black;
 }
-.scoreDisplay{
-width: 200px;
-height: 100px;
+.scoreDisplay {
+  width: 200px;
+  height: 100px;
   top: 15px;
 }
 .border-right {
@@ -96,6 +96,29 @@ height: 100px;
   height: 300px;
   position: absolute;
 }
+.screen {
+  color: black;
+  position: absolute;
+  left: 100px;
+  top: 270px;
+  font-family: Arial, sans-serif;
+  font-size: x-large;
+}
+
+.buton {
+  position:absolute;
+  color: white;
+  background-color: blue;
+  border: 5px solid transparent;
+  transition: 0.2s ease;
+  border-radius: 50px;
+}
+.buton:hover {
+	color: blue;
+	background-color: white;
+	transform: scale(1.1);
+	border: 5px solid blue;
+}
 
 @keyframes slideright {
   from {
@@ -143,23 +166,19 @@ height: 100px;
   top: 10px;
   left: 30px;
   background-image: url('heart.png');
-  
 }
-#heart {
-  color:red;
+
+#p3 {
+  color: red;
   position: absolute;
-  left: 70px; 
+  left: 70px;
   top: -20px;
   font-family: Arial, sans-serif;
-  font-size:x-large;
+  font-size: x-large;
 }
 
-
-@media all and (max-width: 500px) { 
-  .border-right{
+@media all and (max-width: 500px) {
+  .border-right {
     width: 0%;
-
-  } 
-
-  
+  }
 }
