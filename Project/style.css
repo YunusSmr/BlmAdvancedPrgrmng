@@ -26,6 +26,23 @@ body {
   font-size: x-large;
 }
 
+#p3 {
+  color: red;
+  position: absolute;
+  left: 70px;
+  top: -20px;
+  font-family: Arial, sans-serif;
+  font-size: x-large;
+}
+
+#p4 {
+  position: absolute;
+  left: 370px;
+  top: 20px;
+  font-family: Arial, sans-serif;
+  font-size:medium;
+}
+
 #score {
   color: #e43f5a;
 }
@@ -33,11 +50,7 @@ body {
 #high {
   color: black;
 }
-.scoreDisplay {
-  width: 200px;
-  height: 100px;
-  top: 15px;
-}
+
 .border-right {
   width: 80px;
   height: 790px;
@@ -82,6 +95,15 @@ body {
   bottom: 100px;
 }
 
+#instruction {
+  background-image: url('instructions.png');
+  position: absolute;
+  width: 114px;
+  height: 98px;
+  left: 100px;
+  bottom: 350px;
+}
+
 .obstacle {
   background-image: url('flappybird-pipe.png');
   width: 60px;
@@ -96,17 +118,21 @@ body {
   height: 300px;
   position: absolute;
 }
+
 .screen {
   color: black;
   position: absolute;
   left: 100px;
-  top: 270px;
+  top: 250px;
   font-family: Arial, sans-serif;
   font-size: x-large;
 }
 
 .buton {
   position:absolute;
+  width: 100%;
+  height: 50%;
+  top: 75%;
   color: white;
   background-color: blue;
   border: 5px solid transparent;
@@ -141,7 +167,6 @@ body {
 .ground-container {
   height: 100px;
   width: 580px;
-  left: 80px;
   position: absolute;
   left: -80px;
 }
@@ -168,17 +193,11 @@ body {
   background-image: url('heart.png');
 }
 
-#p3 {
-  color: red;
-  position: absolute;
-  left: 70px;
-  top: -20px;
-  font-family: Arial, sans-serif;
-  font-size: x-large;
-}
+
 
 @media all and (max-width: 500px) {
   .border-right {
     width: 0%;
   }
+  
 }

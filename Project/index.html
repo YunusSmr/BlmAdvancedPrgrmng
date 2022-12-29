@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css" />
     <script src="app.js" charset="utf-8"></script>
     <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
   </head>
 
   <body>
@@ -19,13 +20,18 @@
       </div>
       <div class="screen" id="gameover" style="display:none;">
         <h2>Game Over</h2>
-        <button class="buton" onclick="reGame()">Start Game</button>
+        <button  class="buton" onclick="reGame()">Start New Game</button>
+      </div>
+      <div id="instruction" >
       </div>
     </div>
     <div class="ground-container">
       <p id="p1">Score:<span id="score"></span></p>
       <p id="p2">High Score:<span id="high"></span></p>
-      <div class="ground-moving"></div>
+      <div class="ground-moving">
+       <p id="p4"><a href="https://www.youtube.com/watch?v=8xPsg6yv7TU&t=3102s">Referans</a></p>
+      </div>
+      
     </div>
     
 
@@ -33,12 +39,13 @@
     <audio id="audio" src="./sounds_fly.mp3"></audio>
     <audio id="audio2" src="./sounds_score.mp3"></audio>
     <audio id="audio3" src="./res_audio_hit.mp3"></audio>
-
+    
     <script>
       function reGame() {
       this.location.reload()
       console.log('new game')
   }
+  
   </script>
   </body>
 </html>

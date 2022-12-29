@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let isGameOver = false
   let gap = 430
   var score = 0
-  var heartcount = 3
+  var heartcount = 2
   var high = [0]
   let timer = 10
   let speed = 3000
@@ -45,8 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     JSON.parse(localStorage.getItem('high')),
   )
   document.getElementById('p3').innerHTML = heartcount
+  document.getElementById("instruction").style.display = "inline";
+  setTimeout(function() { document.getElementById("instruction").style.display = "none"; }, 3000);
+ 
 
   function startGame() {
+    
     birdBottom -= gravity
     if (birdBottom > -1) {
       bird.style.bottom = birdBottom + 'px'
